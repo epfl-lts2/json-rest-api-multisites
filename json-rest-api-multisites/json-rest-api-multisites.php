@@ -27,6 +27,12 @@ class JsonRESTAPIMultiSites_API_Site {
     }
 
     public function get_sites() {
-        return wp_get_sites();
+        $sites = wp_get_sites();
+        $sites_details = array();
+        foreach ($sites as $site) {
+            $details = get_blog_details($site['blog_id']);
+            array_push($sites_details, $details);
+        }
+        return $sites_details;
     }
 }
